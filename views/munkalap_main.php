@@ -14,11 +14,17 @@
                     <?php foreach ($viewData["adatok"]['adat']as $g) { ?>
                         <tr>
                             <td>
-                                <?= $g["telepules"] ?>
+                                <?= $g["bedatum"] ?>
                             </td>
                             <td>
-                                <?= $g["utca"] ?>
-                             </td>   
+                                <?= $g["javdatum"] ?>
+                             </td>
+                             <td>
+                                <?= $g["munkaora"] ?>
+                            </td>
+                            <td>
+                                <?= $g["anyagar"] ?>
+                             </td>    
                         </tr>
                     <?php } ?>
                 </tbody>
