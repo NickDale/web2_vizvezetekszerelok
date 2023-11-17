@@ -45,6 +45,7 @@ if($request != "")
 // el�bbiekben lek�rdezett param�tereket tov�bbadva. 
 
 $controllerfile = $page.($subpage != "" ? "_".$subpage : "");
+echo $controllerfile;
 $target = SERVER_ROOT.'controllers/'.$controllerfile.'.php';
 if(! file_exists($target))
 {
