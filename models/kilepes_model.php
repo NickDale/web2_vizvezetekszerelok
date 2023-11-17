@@ -9,7 +9,7 @@ class Kilepes_Model
 		$_SESSION['userid'] =  0;
 		$_SESSION['userlastname'] =  "";
 		$_SESSION['userfirstname'] =  "";
-		$_SESSION['userlevel'] = "1__";
+		$_SESSION['userlevel'] = "1___";
 		Menu::setMenu();
 		return $retData;
 	}

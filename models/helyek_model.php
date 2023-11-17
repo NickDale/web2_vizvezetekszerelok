@@ -7,7 +7,8 @@ class Helyek_Model
 		$retData['eredmeny'] = "";
 		try {
 			$connection = Database::getConnection();
-			$sql = "select * from hely;";
+			$sql = "select * from hely
+			where deactivate is null;";
 			$stmt = $connection->query($sql);
 			$valtozo= $stmt->fetchAll(PDO::FETCH_ASSOC);
             $retData['eredmeny'] = "ok";

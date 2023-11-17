@@ -9,7 +9,7 @@
     <body>
         <header>
             <div id="user"><em><?= $_SESSION['userlastname']." ".$_SESSION['userfirstname'] ?></em></div>
-            <h1 class="header">Web-programozás II - MVC alkalmazás</h1>
+            <h1 class="header">Vízvezetékszerelők</h1>
         </header>
         <nav>
             <?php echo Menu::getMenu($viewData['selectedItems']); ?>
