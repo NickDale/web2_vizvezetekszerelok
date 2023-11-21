@@ -53,8 +53,6 @@ if (str_starts_with($request, REST_API_PATH)) {
 	$controllerfile = $page . ($subpage != "" ? "_" . $subpage : "");
 
 	$target = SERVER_ROOT . 'controllers/' . $controllerfile . '.php';
-
-	print_r($target);
 	if (!file_exists($target)) {
 		$controllerfile = "error404";
 		$target = SERVER_ROOT . 'controllers/error404.php';
@@ -76,7 +74,7 @@ if (str_starts_with($request, REST_API_PATH)) {
 		if (file_exists($file)) {
 			include_once($file);
 		} else {
-			die("File '$filename' containing class '$className' not found.");
+			//die("File '$filename' containing class '$className' not found.");
 		}
 	});
 

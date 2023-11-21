@@ -2,10 +2,10 @@
 
 class Szerelo
 {
-    private int $id;
-    private string $nev;
-    private ?int $kezdesEve;
-    private bool $active;
+    public int $id;
+    public string $nev;
+    public ?int $kezdesEve;
+    public bool $active;
 
     public function __construct($row)
     {

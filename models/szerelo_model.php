@@ -32,6 +32,25 @@ class Szerelo_Model
 		return $szerelok;
 	}
 
+	public function szerelok(): array
+	{
+		$result  = Database::getConnection()
+			->query('SELECT * FROM szerelo')
+			->fetchAll(PDO::FETCH_ASSOC);
+
+		$sql = 'SELECT * FROM szerelo';
+
+		if (!$_SESSION['userlevel'] == '___1') {
+			$sql .= " WHERE sz.nev LIKE'" . $_SESSION['userlastname'] . " " . $_SESSION['userfirstname'] . "';";
+		}
+
+		$szerelok = [];
+		foreach ($result as $row) {
+			$szerelok[] = new Szerelo($row);
+		}
+		return $szerelok;
+	}
+
 	public function create($nev, $kezdev)
 	{
 		Database::getConnection()
@@ -59,7 +78,7 @@ class Szerelo_Model
 		$stmt->execute([
 			$szerelo->getNev(),
 			$szerelo->getKezdoEv(),
-			$szerelo->isActive() ? 0 : 1,
+			$szerelo->active ? 0 : 1,
 			$szerelo->getId()
 		]);
 	}

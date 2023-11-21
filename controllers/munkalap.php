@@ -3,15 +3,17 @@
 class Munkalap_Controller
 {
 
-	public $baseName = 'munkalap';  //meghat�rozni, hogy melyik oldalon vagyunk
-	public function main(array $vars) // a router �ltal tov�bb�tott param�tereket kapja
+	private $baseName = 'munkalap';
+	public function main(array $vars)
 	{
-        $helyekModel = new Munkalap_Model;
-		//bet�ltj�k a n�zetet
-		$view = new View_Loader($this->baseName."_main");
-        $view->assign('adatok', $helyekModel ->get_data());
+		$munkaLapModel = new Munkalap_Model;
+		$helyekModel = new Helyek_Model;
+		$szerelok = new Szerelo_Model;
 
+		$view = new View_Loader($this->baseName . "_main");
+
+		$view->assign('szerelok', $szerelok->szerelok());
+		$view->assign('helyek', $helyekModel->helyek());
+		$view->assign('munkalapok', $munkaLapModel->munkalapok());
 	}
 }
-
-?>

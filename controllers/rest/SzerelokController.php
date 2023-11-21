@@ -96,7 +96,7 @@ class SzerelokController
             return;
         }
 
-        if($data->active == false && $szerelo->isActive()){
+        if($data->active == false && $szerelo->active){
             http_response_code(406);
             echo json_encode(
                 ErrorResponse::error406('Ezzel az API-val nem inaktiválható a szerelő')->toArray()
@@ -121,7 +121,7 @@ class SzerelokController
         if ($szerelo == null) {
             $this->err('Szerelő nem található ezzel az Id-val');
         } else {
-            if (!$szerelo->isActive()) {
+            if (!$szerelo->active) {
                 http_response_code(406);
                 echo json_encode(
                     ErrorResponse::error(406, 'Nem törölhető, mert már deactivált')->toArray()
