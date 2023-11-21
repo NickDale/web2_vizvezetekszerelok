@@ -52,6 +52,18 @@ class Szerelo_Model
 		return new Szerelo($result);
 	}
 
+	public function update(Szerelo $szerelo)
+	{
+		$stmt = Database::getConnection()
+			->prepare('UPDATE szerelo SET nev = ?, kezdev = ?, deactivate = ? WHERE az = ?');
+		$stmt->execute([
+			$szerelo->getNev(),
+			$szerelo->getKezdoEv(),
+			$szerelo->isActive() ? 0 : 1,
+			$szerelo->getId()
+		]);
+	}
+
 	public function deactivate($id)
 	{
 		$stmt = Database::getConnection()

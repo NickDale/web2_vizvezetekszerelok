@@ -29,4 +29,34 @@ class Szerelo
     {
         return $this->active;
     }
+
+    public function setActive(bool $active)
+    {
+        $this->active = $active;
+    }
+
+    public function getNev(): string
+    {
+        return $this->nev;
+    }
+
+    public function setNev(string $nev)
+    {
+        $this->nev = $nev;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getKezdoEv()
+    {
+        return $this->kezdesEve;
+    }
+
+    public function setKezdesEve(int $ev)
+    {
+        $this->kezdesEve = $ev;
+    }
 }

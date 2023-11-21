@@ -26,7 +26,6 @@ class SzerelokController
                 break;
             default:
                 http_response_code(405);
-                //    header('Content-Type: application/json');
                 echo json_encode(
                     ErrorResponse::error(405, "Nem  támogatott metódus")->toArray()
                 );
@@ -40,8 +39,6 @@ class SzerelokController
     private function getAction()
     {
         $szerelok = $this->model->listAllSzerelo();
-
-        //header('Content-Type: application/json');
         http_response_code(200);
 
         echo json_encode(
@@ -72,26 +69,45 @@ class SzerelokController
         }
     }
 
-
+    /**
+     * Szerelő módosítása a megadott Id alapján
+     * 
+     * Lehet nem aktív szerelőt  activálni és 
+     */
     public function putAction($szereloId)
     {
-        
         $data = json_decode(file_get_contents("php://input"));
-        if ($data !== null) {
+        if ($data == null) {
+            $this->err();
+            return;
         }
+
+        if ($data->nev == null  || IntlChar::isblank($data->nev)) {
+            $this->err('nev mező értéke nem lehet null és üres string');
+            return;
+        }
+
         $szerelo = $this->model->findById($szereloId);
         if ($szerelo == null) {
-            $this->err('Szerelő nem található ezzel az Id-val');
-        } else {
-            print_r($szerelo);
-            print_r("PUT");
+            http_response_code(404);
+            echo json_encode(
+                ErrorResponse::error404('Szerelő nem található ezzel az Id-val')->toArray()
+            );
+            return;
         }
 
+        if($data->active == false && $szerelo->isActive()){
+            http_response_code(406);
+            echo json_encode(
+                ErrorResponse::error406('Ezzel az API-val nem inaktiválható a szerelő')->toArray()
+            );
+        }
 
+        $szerelo->setKezdesEve($data->kezdoev ?? null);
+        $szerelo->setNev($data->nev);
+        $szerelo->setActive($data->nev);
 
-       
-        print_r("PUT");
-        print_r($_GET['id'] ?? 'nincs');
+        $this->model->update($szerelo);
     }
 
     /**
