@@ -1,4 +1,5 @@
 <?php
+require_once 'models/szerelo.php';
 
 class Szerelo_Model
 {
@@ -7,8 +8,7 @@ class Szerelo_Model
 		$retData['eredmeny'] = "";
 		try {
 			$connection = Database::getConnection();
-			$sql = "select * from szerelo
-			where deactivate =0;";
+			$sql = "select * from szerelo ";
 			$stmt = $connection->query($sql);
 			$valtozo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$retData['eredmeny'] = "ok";
@@ -30,6 +30,31 @@ class Szerelo_Model
 			$szerelok[] = new Szerelo($row);
 		}
 		return $szerelok;
+	}
+
+	public function szerelokEsBefejezetttMunkak()
+	{
+		$sql = "SELECT 
+		s.nev AS szerelo_neve, 
+		COUNT(*) AS befejezett_munkak 
+        FROM szerelo s 
+        INNER JOIN munkalap m ON s.az = m.szereloaz 
+        WHERE m.javdatum IS NOT NULL 
+        GROUP BY s.nev";
+
+		$result  = Database::getConnection()
+			->query($sql)
+			->fetchAll(PDO::FETCH_ASSOC);
+
+
+		$szereloMunkak = [];
+		foreach ($result as $row) {
+			$szereloMunkak[] = [
+				'szerelo_neve' => $row['szerelo_neve'],
+				'befejezett_munkak_szama' => $row['befejezett_munkak']
+			];
+		}
+		return json_encode($szereloMunkak);
 	}
 
 	public function szerelok(): array
