@@ -1,6 +1,6 @@
 <?php
 
-class Addujszerelo_Model
+class Szerelomod_Model
 {
 	public function modify_data($az, $nev, $kezdev,$deactivate)
 	{

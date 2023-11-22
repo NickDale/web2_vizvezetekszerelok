@@ -7,7 +7,7 @@ class Szerelomod_Controller
 	public function main(array $vars) // a router �ltal tov�bb�tott param�tereket kapja
 	{
         $helyekModel = new Szerelomod_Model;
-        $helyekModel->modify_data($_POST["az"].$_POST["nev"],$_POST["kezdev"],$_POST["deactivate"]);
+        $helyekModel->modify_data($_POST["az"],$_POST["nev"],$_POST["kezdev"],$_POST["deactivate"]);
 		//bet�ltj�k a n�zetet
 
 		$helyekModel = new Szerelo_Model;

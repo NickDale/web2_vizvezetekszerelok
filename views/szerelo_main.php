@@ -25,9 +25,9 @@
                             <td>
                                 <?= $g["deactivate"] ?>
                              </td> 
-                             <td><a href="<?= SITE_ROOT.'szerelo/szerelomodosit&id=$g["az"]' ?>">módosít  </a>
+                             <td><a href="<?= SITE_ROOT.'szerelo/szerelomodosit&id='.$g["az"] ?>">módosít  </a>
                             </td>
-                            <td><a href="<?= SITE_ROOT.'szerelotorol&id=$g["az"]' ?>">TÖRÖL  </a>
+                            <td><a href="<?= SITE_ROOT.'szerelotorol&id='.$g["az"] ?>">TÖRÖL  </a>
                             </td>
                         </tr>
                     <?php } ?>

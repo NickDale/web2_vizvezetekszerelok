@@ -9,7 +9,8 @@ class Szerelo_szerelomodosit_Controller
         
 		//bet�ltj�k a n�zetet
 		$view = new View_Loader($this->baseName."_main");
-       
+		$helyekModel = new Szerelo_Model;
+		$view->assign('adatok', $helyekModel ->get_databyId($_GET["id"]));
 
 	}
 }

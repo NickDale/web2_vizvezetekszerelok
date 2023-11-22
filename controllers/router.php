@@ -25,9 +25,19 @@ if($request != "")
 	
 	if(array_key_exists($page, Menu::$menu) && count($params)>0) // Az oldal egy men�pont oldala �s van m�g adat az url-ben
 	{
+		//echo "bent vagyok";
 		$subpage = array_shift($params); // a k�rt aloldal
+		if(str_contains($subpage, "&"))
+		{
+			$subpage = explode("&",$subpage)[0];
+		}
+		/*echo (array_key_exists($subpage, Menu::$menu));
+		echo "<br>";
+		echo Menu::$menu[$subpage][1] == $page;*/
+
 		if(! (array_key_exists($subpage, Menu::$menu) && Menu::$menu[$subpage][1] == $page)) // ha nem egy alolal
 		{
+			echo "bent vagyok2";
 			$vars[] = $subpage; // akkor ez egy parameter
 			$subpage = ""; // �s nincs aloldal
 		}
@@ -45,7 +55,7 @@ if($request != "")
 // el�bbiekben lek�rdezett param�tereket tov�bbadva. 
 
 $controllerfile = $page.($subpage != "" ? "_".$subpage : "");
-echo $controllerfile;
+//echo $controllerfile;
 $target = SERVER_ROOT.'controllers/'.$controllerfile.'.php';
 if(! file_exists($target))
 {

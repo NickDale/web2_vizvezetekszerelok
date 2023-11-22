@@ -15,6 +15,7 @@
             <?php echo Menu::getMenu($viewData['selectedItems']); ?>
         </nav>
         <aside>
+            
                 <p>Phasellus wisi nulla...</p>
         </aside>
         <section>
