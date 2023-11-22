@@ -1,17 +1,14 @@
 <?php
 
 require_once 'service/pdf_creator.php';
+require_once 'models/munkalap_model.php';
+require_once 'models/munkalap.php';
 
 class Print_Controller
 {
-    private $baseName = 'print';
-    public function main(array $vars)
+    public function print($munkaLapok)
     {
-
-        print_r("PDF creator Controller");
-        $munkaLapModel = new Munkalap_Model;
-
         $pdfCreator = new PdfCreator();
-        $pdfCreator->createPdf($munkaLapModel->munkalapok());
+        $pdfCreator->createPdf($munkaLapok);
     }
 }

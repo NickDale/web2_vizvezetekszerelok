@@ -30,7 +30,7 @@ class Szerelo
         return $this->active;
     }
 
-    public function setActive(bool $active)
+    public function setActive($active)
     {
         $this->active = $active;
     }
@@ -55,7 +55,7 @@ class Szerelo
         return $this->kezdesEve;
     }
 
-    public function setKezdesEve(int $ev)
+    public function setKezdesEve(?int $ev)
     {
         $this->kezdesEve = $ev;
     }

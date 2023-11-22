@@ -8,7 +8,6 @@ class SzerelokController
     private Szerelo_Model $model;
     public function __construct($method, $szereloId)
     {
-        $params = [];
         $this->model = new Szerelo_Model();
         header('Content-Type: application/json');
         switch ($method) {
@@ -19,7 +18,7 @@ class SzerelokController
                 $this->postAction();
                 break;
             case 'PUT':
-                $this->putAction($params, $szereloId);
+                $this->putAction($szereloId);
                 break;
             case 'DELETE':
                 $this->deleteAction($szereloId);
@@ -76,13 +75,23 @@ class SzerelokController
      */
     public function putAction($szereloId)
     {
+        try {
+            if (!isset($szereloId) || ((int)$szereloId) < 1) {
+                $this->err('szereloId-t kötelező megadni');
+                return;
+            }
+        } catch (Exception $ex) {
+            $this->err('invalid szereloId');
+            return;
+        }
+
         $data = json_decode(file_get_contents("php://input"));
         if ($data == null) {
             $this->err();
             return;
         }
 
-        if ($data->nev == null  || IntlChar::isblank($data->nev)) {
+        if ($data->nev == null  || empty($data->nev)) {
             $this->err('nev mező értéke nem lehet null és üres string');
             return;
         }
@@ -95,8 +104,8 @@ class SzerelokController
             );
             return;
         }
-
-        if($data->active == false && $szerelo->active){
+        $deactivate = $data->active ?? true;
+        if ($deactivate === false && $szerelo->active) {
             http_response_code(406);
             echo json_encode(
                 ErrorResponse::error406('Ezzel az API-val nem inaktiválható a szerelő')->toArray()
@@ -105,7 +114,7 @@ class SzerelokController
 
         $szerelo->setKezdesEve($data->kezdoev ?? null);
         $szerelo->setNev($data->nev);
-        $szerelo->setActive($data->nev);
+        $szerelo->setActive($deactivate);
 
         $this->model->update($szerelo);
     }
@@ -117,6 +126,17 @@ class SzerelokController
      */
     public function deleteAction($szereloId)
     {
+        try {
+            $szereloId = isset($szereloId) ? (int)$szereloId : null;
+            if ($szereloId == null || $szereloId < 1) {
+                $this->err('szereloId-t kötelező megadni');
+                return;
+            }
+        } catch (Exception $ex) {
+            $this->err('invalid szereloId');
+            return;
+        }
+
         $szerelo = $this->model->findById($szereloId);
         if ($szerelo == null) {
             $this->err('Szerelő nem található ezzel az Id-val');

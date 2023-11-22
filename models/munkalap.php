@@ -24,6 +24,21 @@ class Munkalap
     }
 
 
+    public function toArray(): array
+    {
+        return [
+            'munkaLapId' => $this->munkaLapId,
+            'beadasDatuma' => $this->beadasDatuma,
+            'javitasDatuma' => $this->javitasDatuma,
+            'telepules' => $this->telepules,
+            'utca' => $this->utca,
+            'szereloNeve' => $this->szereloNeve,
+            'munkaora' => $this->munkaora,
+            'anyagar' => $this->anyagar
+        ];
+    }
+
+
     private function getInFloat(string $data): float | null
     {
         if ($data !== '' && is_numeric($data)) {
