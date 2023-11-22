@@ -2,16 +2,12 @@
 
 class Szerelo_Controller
 {
-
-	public $baseName = 'szerelo';  //meghat�rozni, hogy melyik oldalon vagyunk
-	public function main(array $vars) // a router �ltal tov�bb�tott param�tereket kapja
+	private $baseName = 'szerelo';
+	public function main(array $vars)
 	{
-        $helyekModel = new Szerelo_Model;
-		//bet�ltj�k a n�zetet
-		$view = new View_Loader($this->baseName."_main");
-        $view->assign('adatok', $helyekModel ->get_data());
-
+		$szereloModel = new Szerelo_Model;
+		$view = new View_Loader($this->baseName . "_main");
+		$view->assign('adatok', $szereloModel->get_data());
+		$view->assign('szerelokEsMunkak', $szereloModel->szerelokEsBefejezetttMunkak());
 	}
 }
-
-?>
