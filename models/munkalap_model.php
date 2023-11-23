@@ -50,7 +50,7 @@ class Munkalap_Model
 		return $munkalapok;
 	}
 
-	public function filter($szereloId, $helyId, bool $befejeztett)
+	public function filter($szereloId, $telepules, bool $befejeztett)
 	{
 		$sql = "SELECT m.az, m.bedatum, m.javdatum, m.munkaora,
 		m.anyagar, sz.nev, h.telepules, h.utca    
@@ -58,15 +58,15 @@ class Munkalap_Model
 		Inner JOIN szerelo sz ON sz.az = m.szereloaz 
 		INNER JOIN hely h ON h.az = m.helyaz ";
 
-		$sql .= $this->conditions($szereloId, $helyId, $befejeztett);
+		$sql .= $this->conditions($szereloId, $telepules, $befejeztett);
 
 		$parameters = [];
 		if (!empty($szereloId)) {
 			$parameters[] = $szereloId;
 		}
 
-		if (!empty($helyId)) {
-			$parameters[] = $helyId;
+		if (!empty($telepules)) {
+			$parameters[] = $telepules;
 		}
 
 		if (!$_SESSION['userlevel'] == '___1') {
@@ -85,7 +85,7 @@ class Munkalap_Model
 	}
 
 
-	private function conditions($szereloId, $helyId, $befejeztett): string
+	private function conditions($szereloId, $telepules, $befejeztett): string
 	{
 		$conditions = [];
 
@@ -93,8 +93,8 @@ class Munkalap_Model
 			$conditions[] = " sz.az = ? ";
 		}
 
-		if (!empty($helyId)) {
-			$conditions[] = " h.az = ? ";
+		if (!empty($telepules)) {
+			$conditions[] = " h.telepules = ? ";
 		}
 
 		if (!empty($befejeztett)  || $befejeztett == 1) {

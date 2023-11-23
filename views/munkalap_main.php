@@ -30,8 +30,8 @@
                     <label for="helyek-selector">Települések</label>
                     <select id="helyek-selector">
                         <option value="">----- Válasszon egyet --------</option>
-                        <?php foreach ($viewData["helyek"] as $option) {
-                            echo "<option value='$option->helyId'>$option->telepules</option>";
+                        <?php foreach ($viewData["telepulesek"] as $option) {
+                            echo "<option value='$option'>$option</option>";
                         }
                         ?>
                     </select>
@@ -40,7 +40,7 @@
                     <input type="radio" id="radio_closed" name="radio_group" value="closed" checked>
                     <label for="radio_closed">Befejezett</label><br>
                     <input type="radio" id="radio_open" name="radio_group" value="open">
-                    <label for="radio_open">Folyamatban lévő</label><br>
+                    <label for="radio_open">Minden</label><br>
                 </div>
             </div>
 
@@ -56,8 +56,7 @@
         <thead>
             <tr>
                 <th>Munkalap azonosító</th>
-                <th>Település</th>
-                <th>utca</th>
+                <th>Cím</th>
                 <th>Beadás dátuma</th>
                 <th>Szerelő</th>
                 <th>Javítás dátuma</th>
@@ -73,10 +72,7 @@
                         <?= $ml->getMunkaLapId() ?>
                     </td>
                     <td>
-                        <?= $ml->getTelepules() ?>
-                    </td>
-                    <td>
-                        <?= $ml->getUtca() ?>
+                        <?= $ml->getTelepules() . ' ' . $ml->getUtca() ?>
                     </td>
                     <td>
                         <?= $ml->getBeadasDatuma() ?>
@@ -103,11 +99,11 @@
 
         $('#generate-pdf-btn').click(function() {
             var szereloId = $('#szerelok-selector').val();
-            var helyId = $('#helyek-selector').val();
+            var telepules = $('#helyek-selector').val();
 
             var requestData = {
                 szereloId: szereloId ?? null,
-                helyId: helyId ?? null,
+                telepules: telepules ?? null,
                 bejezett: getSelectedValue() == 'closed' ? true : false
             };
 
@@ -122,14 +118,15 @@
 
         $('#filter-btn').click(function() {
             var szereloId = $('#szerelok-selector').val();
-            var helyId = $('#helyek-selector').val();
+            var telepules = $('#helyek-selector').val();
 
             var requestData = {
                 szereloId: szereloId ?? null,
-                helyId: helyId ?? null,
+                telepules: telepules ?? null,
                 bejezett: getSelectedValue() == 'closed' ? true : false
             };
 
+            console.log(requestData);
             var url = '<?= SITE_ROOT . REST_API_PATH . '/search' ?>';
             sendAjaxRequest(url, requestData, function(response) {
                 updateTable(response);
@@ -198,8 +195,7 @@
             return `
             <tr>
                 <td>${this.munkaLapId}</td>
-                <td>${this.telepules}</td>
-                <td>${this.utca}</td>
+                <td>${this.telepules} ${this.utca}</td>
                 <td>${this.beadasDatuma}</td>
                 <td>${this.szereloNeve}</td>
                 <td>${this.javitasDatuma}</td>
