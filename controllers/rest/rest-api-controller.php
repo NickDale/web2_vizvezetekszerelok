@@ -50,7 +50,7 @@ class RestApiController
 
         return  $munkaLapModel->filter(
             $requestData['szereloId'] ?? null,
-            $requestData['helyId'] ?? null,
+            $requestData['telepules'] ?? null,
             $bef  == 'true'  ? true : false,
         );
     }

@@ -13,7 +13,7 @@ class Munkalap_Controller
 		$view = new View_Loader($this->baseName . "_main");
 
 		$view->assign('szerelok', $szerelok->szerelok());
-		$view->assign('helyek', $helyekModel->helyek());
+		$view->assign('telepulesek', $helyekModel->telepulesek());
 		$view->assign('munkalapok', $munkaLapModel->munkalapok());
 	}
 }

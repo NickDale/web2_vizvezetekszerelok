@@ -20,16 +20,16 @@ class Helyek_Model
 		return $retData;
 	}
 
-	public function helyek()
+	public function telepulesek()
 	{
 		$result = Database::getConnection()
-			->query("SELECT * FROM hely")
+			->query("SELECT DISTINCT h.telepules FROM hely h")
 			->fetchAll(PDO::FETCH_ASSOC);
 
-		$helyek = [];
+		$telepulesek = [];
 		foreach ($result as $row) {
-			$helyek[] = new Hely($row);
+			$telepulesek[] = $row["telepules"];
 		}
-		return $helyek;
+		return $telepulesek;
 	}
 }
