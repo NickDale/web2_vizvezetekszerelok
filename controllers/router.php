@@ -33,9 +33,9 @@ if (str_starts_with($request, REST_API_PATH)) {
 		if (array_key_exists($page, Menu::$menu) && count($params) > 0) // Az oldal egy men�pont oldala �s van m�g adat az url-ben
 		{
 			$subpage = array_shift($params); // a k�rt aloldal
-			if(str_contains($subpage, "&"))
+			if(str_contains($subpage, "?"))
 			{
-				$subpage = explode("&",$subpage)[0];
+				$subpage = explode("?",$subpage)[0];
 			}
 			/*if (!(array_key_exists($subpage, Menu::$menu) && Menu::$menu[$subpage][1] == $page)) // ha nem egy alolal
 			{
