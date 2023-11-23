@@ -37,11 +37,11 @@ if (str_starts_with($request, REST_API_PATH)) {
 			{
 				$subpage = explode("&",$subpage)[0];
 			}
-			if (!(array_key_exists($subpage, Menu::$menu) && Menu::$menu[$subpage][1] == $page)) // ha nem egy alolal
+			/*if (!(array_key_exists($subpage, Menu::$menu) && Menu::$menu[$subpage][1] == $page)) // ha nem egy alolal
 			{
 				$vars[] = $subpage; // akkor ez egy parameter
 				$subpage = ""; // �s nincs aloldal
-			}
+			}*/
 		}
 		$vars += $_POST;
 

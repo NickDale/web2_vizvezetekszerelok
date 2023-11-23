@@ -32,4 +32,16 @@ class Helyek_Model
 		}
 		return $telepulesek;
 	}
+	public function telepulesekEsId()
+	{
+		$result = Database::getConnection()
+			->query("SELECT DISTINCT h.telepules FROM hely h")
+			->fetchAll(PDO::FETCH_ASSOC);
+
+		$telepulesek = [];
+		foreach ($result as $row) {
+			$telepulesek[] = $row;
+		}
+		return $telepulesek;
+	}
 }
