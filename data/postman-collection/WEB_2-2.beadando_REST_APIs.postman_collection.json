@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "4a0c69a6-284f-4049-a0a6-8d31ce4ea8cc",
+		"name": "WEB_2-2.beadando_REST_APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11191338"
+	},
+	"item": [
+		{
+			"name": "Szerelők listázása",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://norbitiborvizvez.nhely.hu/api/rest/szerelok",
+					"protocol": "http",
+					"host": [
+						"norbitiborvizvez",
+						"nhely",
+						"hu"
+					],
+					"path": [
+						"api",
+						"rest",
+						"szerelok"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Szerelő létrehozása",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nev\":\"Teszt Elek\",\r\n    \"kezdev\":null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://norbitiborvizvez.nhely.hu/api/rest/szerelok",
+					"protocol": "http",
+					"host": [
+						"norbitiborvizvez",
+						"nhely",
+						"hu"
+					],
+					"path": [
+						"api",
+						"rest",
+						"szerelok"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Szerelő módosítása Id alapján",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nev\":\"Szer Elek-tra\",\r\n    \"kezdoev\":2020\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://norbitiborvizvez.nhely.hu/api/rest/szerelok/7",
+					"protocol": "http",
+					"host": [
+						"norbitiborvizvez",
+						"nhely",
+						"hu"
+					],
+					"path": [
+						"api",
+						"rest",
+						"szerelok",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Szerelő törlés Id alapján",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nev\":\"Teszt Elek\",\r\n    \"kezdoev\":2020\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://norbitiborvizvez.nhely.hu/api/rest/szerelok/12",
+					"protocol": "http",
+					"host": [
+						"norbitiborvizvez",
+						"nhely",
+						"hu"
+					],
+					"path": [
+						"api",
+						"rest",
+						"szerelok",
+						"12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
