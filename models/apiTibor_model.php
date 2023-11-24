@@ -29,3 +29,4 @@ class ApiTibor_Model
 		return $retData;
 	}
 }
+?>

@@ -17,7 +17,9 @@
         <?php echo Menu::getMenu($viewData['selectedItems']); ?>
     </nav>
     <aside>
-        <p>Phasellus wisi nulla...</p>
+        <p>        furcsán szökken a pentameter-sor elő:<br>
+         "Tóth Gyula bádogos és vízvezeték-szerelő"</p>
+        <img src="/static/plumber.jpg"style="width:100px">
     </aside>
     <section>
         <?php if ($viewData['render']) include($viewData['render']); ?>
