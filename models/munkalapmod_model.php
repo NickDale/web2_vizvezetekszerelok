@@ -2,16 +2,15 @@
 
 class Munkalapmod_Model
 {
-	public function modify_data($az, $bedatum, $javdatum, $deactivate,
-    $helyaz, $nev, $kezdev,$deactivate)
+	public function modify_data($az, $bedatum, $javdatum, $munkaora, $anyagar,$deactivate)
 	{
 		
 		
 			$connection = Database::getConnection();
-			$sql = "UPDATE munkalap SET bedatum=?, kezdev=?, deactivate	=? 
-            bedatum=?, kezdev=?, deactivate	=? ,
+			$sql = "UPDATE munkalap SET bedatum=?, javdatum=?, munkaora=? 
+            anyagar=?, deactivate=? 
             WHERE az =?";
-			$connection->prepare($sql)->execute([$nev, $kezdev,$deactivate,$az]);
+			$connection->prepare($sql)->execute([$bedatum, $javdatum, $munkaora, $anyagar,$deactivate,$az]);
 			
 		
 		

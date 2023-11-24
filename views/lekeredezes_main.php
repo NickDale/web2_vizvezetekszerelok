@@ -16,7 +16,7 @@
                        
                     <?php } ?>
                     </select>
-                    <select name="szerelo" id="szrelo">
+                    <select name="szerelo" id="szerelo">
                     <?php foreach ($viewData["adatok"]['adat'] as $g) { ?>
                         <option value='<?= $g["nev"] ?>'><?= $g["nev"] ?></option>   
                     <?php } ?>

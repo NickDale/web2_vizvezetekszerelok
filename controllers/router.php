@@ -29,6 +29,10 @@ if (str_starts_with($request, REST_API_PATH)) {
 	if ($request != "") {
 		$params = explode('/', $request);
 		$page = array_shift($params); // a k�rt oldal neve
+		if(str_contains($page, '&'))
+		{
+			$page =  explode('&', $page)[0];
+		}
 
 		if (array_key_exists($page, Menu::$menu) && count($params) > 0) // Az oldal egy men�pont oldala �s van m�g adat az url-ben
 		{
@@ -37,6 +41,7 @@ if (str_starts_with($request, REST_API_PATH)) {
 			{
 				$subpage = explode("?",$subpage)[0];
 			}
+			//echo $subpage;
 			/*if (!(array_key_exists($subpage, Menu::$menu) && Menu::$menu[$subpage][1] == $page)) // ha nem egy alolal
 			{
 				$vars[] = $subpage; // akkor ez egy parameter
@@ -57,7 +62,7 @@ if (str_starts_with($request, REST_API_PATH)) {
 	// el�bbiekben lek�rdezett param�tereket tov�bbadva. 
 
 	$controllerfile = $page . ($subpage != "" ? "_" . $subpage : "");
-
+	//echo $controllerfile;
 	$target = SERVER_ROOT . 'controllers/' . $controllerfile . '.php';
 	if (!file_exists($target)) {
 		$controllerfile = "error404";
