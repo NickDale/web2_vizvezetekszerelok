@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Nov 16. 18:40
+-- Létrehozás ideje: 2023. Nov 23. 19:55
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -33,7 +33,7 @@ CREATE TABLE `felhasznalok` (
   `utonev` varchar(45) NOT NULL DEFAULT '',
   `bejelentkezes` varchar(12) NOT NULL DEFAULT '',
   `jelszo` varchar(40) NOT NULL DEFAULT '',
-  `jogosultsag` varchar(3) NOT NULL DEFAULT '_1_',
+  `jogosultsag` varchar(4) NOT NULL DEFAULT '_1__',
   `deactivate` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -42,9 +42,9 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`id`, `csaladi_nev`, `utonev`, `bejelentkezes`, `jelszo`, `jogosultsag`, `deactivate`) VALUES
-(11, 'Arany', 'János', 'ari', '8cb2237d0679ca88db6464eac60da96345513964', '1__', NULL),
-(1, 'Tornyos', 'Pál', 'tornyi', '8cb2237d0679ca88db6464eac60da96345513964', '_1_', NULL),
-(13, 'Admin', 'Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '__1', NULL);
+(11, 'Arany', 'János', 'arany', '8cb2237d0679ca88db6464eac60da96345513964', '_1__', NULL),
+(1, 'Tornyos', 'Pál', 'tornyi', '8cb2237d0679ca88db6464eac60da96345513964', '__1_', NULL),
+(13, 'Admin', 'Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '___1', NULL);
 
 -- --------------------------------------------------------
 
@@ -559,7 +559,8 @@ INSERT INTO `hely` (`az`, `telepules`, `utca`, `deactivate`) VALUES
 (493, 'Zöldhely', 'Hermina u. 57.', NULL),
 (494, 'Kékség', 'Gyűrű u. 22.', NULL),
 (495, 'Kőváros', 'Csipke u. 21.', NULL),
-(496, 'Barackfalva', 'Csűr u. 10.', NULL);
+(496, 'Barackfalva', 'Csűr u. 10.', NULL),
+(497, 'Barack', 'Csá 1', NULL);
 
 -- --------------------------------------------------------
 
@@ -571,7 +572,7 @@ CREATE TABLE `menu` (
   `url` varchar(30) NOT NULL,
   `nev` varchar(30) NOT NULL,
   `szulo` varchar(30) NOT NULL,
-  `jogosultsag` varchar(3) NOT NULL,
+  `jogosultsag` varchar(4) NOT NULL,
   `sorrend` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -580,15 +581,21 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`url`, `nev`, `szulo`, `jogosultsag`, `sorrend`) VALUES
-('admin', 'Admin', '', '001', 80),
-('alapinfok', 'Alapinfók', 'elerhetoseg', '111', 40),
-('belepes', 'Belépés', '', '100', 60),
-('elerhetoseg', 'Elérhetőség', '', '111', 20),
-('helyek', 'Helyek', '', '111', 11),
-('kiegeszitesek', 'Kiegészítések', 'elerhetoseg', '011', 50),
-('kilepes', 'Kilépés', '', '011', 70),
-('munkalap', 'Munkalap', '', '010', 23),
-('nyitolap', 'Nyitólap', '', '111', 10);
+('admin', 'Admin', '', '0001', 80),
+('alapinfok', 'Alapinfók', 'elerhetoseg', '1111', 40),
+('apitibor', 'Lekérdezés', 'admin', '0001', 12),
+('belepes', 'Belépés', '', '1000', 60),
+('elerhetoseg', 'Elérhetőség', '', '1111', 20),
+('helyek', 'Helyek', '', '0111', 11),
+('kiegeszitesek', 'Kiegészítések', 'elerhetoseg', '0111', 50),
+('kilepes', 'Kilépés', '', '0111', 70),
+('munkalap', 'Munkalap', '', '0011', 23),
+('munkalapmodosit', 'Munkalap módosítása', 'munkalap', '0011', 24),
+('nyitolap', 'Nyitólap', '', '1111', 10),
+('szerelo', 'Szerelo', '', '0001', 24),
+('ujhelyek', 'Új hely hozzáadása', 'helyek', '0001', 45),
+('ujmunkalap', 'Új munkalap hozzáadása', 'munkalap', '0001', 34),
+('ujszerelo', 'Új szerelő hozzáadása', 'szerelo', '0001', 50);
 
 -- --------------------------------------------------------
 
@@ -1247,7 +1254,8 @@ INSERT INTO `munkalap` (`az`, `bedatum`, `javdatum`, `helyaz`, `szereloaz`, `mun
 (634, '2001-03-26', '2001-03-30', 294, 2, 3, 3769, NULL),
 (635, '2001-03-08', '2001-03-10', 196, 1, 3, 1430, NULL),
 (636, '2001-03-03', '2001-03-07', 110, 1, 3, 4661, NULL),
-(637, '2001-05-07', '2001-05-10', 429, 3, 1, 1816, NULL);
+(637, '2001-05-07', '2001-05-10', 429, 3, 1, 1816, NULL),
+(638, '2023-11-18', '2023-11-18', 1, 1, 5, 3000, NULL);
 
 -- --------------------------------------------------------
 
@@ -1272,7 +1280,10 @@ INSERT INTO `szerelo` (`az`, `nev`, `kezdev`, `deactivate`) VALUES
 (3, 'Fodor László', 1983, 0),
 (4, 'Szabó Mihály', 1975, 0),
 (5, 'Szabó György', 2000, 0),
-(6, 'Erdei Imre', 1988, 0);
+(6, 'Erdei Imre', 1988, 0),
+(7, 'Ko pali', 1988, 0),
+(8, 'Ko pali', 1988, 0),
+(9, 'Ko palko', 1988, 0);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -1324,19 +1335,19 @@ ALTER TABLE `felhasznalok`
 -- AUTO_INCREMENT a táblához `hely`
 --
 ALTER TABLE `hely`
-  MODIFY `az` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=497;
+  MODIFY `az` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=498;
 
 --
 -- AUTO_INCREMENT a táblához `munkalap`
 --
 ALTER TABLE `munkalap`
-  MODIFY `az` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=638;
+  MODIFY `az` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=639;
 
 --
 -- AUTO_INCREMENT a táblához `szerelo`
 --
 ALTER TABLE `szerelo`
-  MODIFY `az` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `az` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Megkötések a kiírt táblákhoz
